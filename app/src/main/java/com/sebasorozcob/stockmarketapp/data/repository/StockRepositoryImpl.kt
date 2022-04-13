@@ -1,7 +1,6 @@
 package com.sebasorozcob.stockmarketapp.data.repository
 
 import com.sebasorozcob.stockmarketapp.data.csv.CSVParser
-import com.sebasorozcob.stockmarketapp.data.csv.CompanyListingsParser
 import com.sebasorozcob.stockmarketapp.data.local.StockDatabase
 import com.sebasorozcob.stockmarketapp.data.mapper.toCompanyListing
 import com.sebasorozcob.stockmarketapp.data.mapper.toCompanyListingEntity
@@ -20,7 +19,7 @@ import javax.inject.Singleton
 class StockRepositoryImpl @Inject constructor(
     private val api: StockApi,
     private val db: StockDatabase,
-    val companyListingsParser: CSVParser<CompanyListing>
+    private val companyListingsParser: CSVParser<CompanyListing>
 ): StockRepository{
 
     private val dao = db.dao
