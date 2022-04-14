@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.room.Room
 import com.sebasorozcob.stockmarketapp.data.local.StockDatabase
 import com.sebasorozcob.stockmarketapp.data.remote.StockApi
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
