@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.PaintingStyle.Companion.Stroke
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -17,18 +16,18 @@ import kotlin.math.roundToInt
 
 @Composable
 fun StockChart(
-    infos: List<IntradayInfo> = emptyList(),
     modifier: Modifier = Modifier,
+    infos: List<IntradayInfo> = emptyList(),
     graphColor: Color = Color.Green
 ) {
     val spacing = 100f
     val transparentGraphColor = remember {
-        graphColor.copy(alpha = 0.5f)
+        graphColor.copy(alpha = 0.2f)
     }
-    val upperValue = remember {
+    val upperValue = remember(infos) {
         (infos.maxOfOrNull { it.close }?.plus(1))?.roundToInt() ?: 0
     }
-    val lowerValue = remember {
+    val lowerValue = remember(infos) {
         infos.minOfOrNull { it.close }?.toInt() ?: 0
     }
     val density = LocalDensity.current
@@ -48,14 +47,14 @@ fun StockChart(
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
                     hour.toString(),
-                    spacing + 1 * spacePerHour,
+                    spacing + i * spacePerHour,
                     size.height - 5,
                     textPaint
                 )
             }
         } //: FOREACH
         val priceStep = (upperValue - lowerValue) /5f
-        (0..5).forEach { i ->
+        (0..4).forEach { i ->
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
                     round(lowerValue + priceStep * i).toString(),

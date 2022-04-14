@@ -16,12 +16,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.sebasorozcob.stockmarketapp.presentation.company_info.CompanyInfoScreen
+import com.sebasorozcob.stockmarketapp.presentation.destinations.CompanyInfoScreenDestination
+
 //import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination(start = true)
 fun CompanyListingsScreen(
-    //navigator: DestinationsNavigator,
+    navigator: DestinationsNavigator,
     viewModel: CompanyListingsViewModel = hiltViewModel()
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(
@@ -63,7 +67,9 @@ fun CompanyListingsScreen(
                        modifier = Modifier
                            .fillMaxWidth()
                            .clickable {
-                               // TODO: Navigate to detail screen
+                               navigator.navigate(
+                                   CompanyInfoScreenDestination(company.symbol)
+                               )
                            }
                            .padding(16.dp)
                    )
